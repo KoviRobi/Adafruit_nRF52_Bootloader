@@ -57,7 +57,7 @@
 #define USB_DESC_CDC_ONLY_PID  0x5284
 
 //------------- UF2 -------------//
-#define UF2_PRODUCT_NAME   "DO25Pro left"
-#define UF2_VOLUME_LABEL   "DO52PRO_LEFT"
+#define UF2_PRODUCT_NAME   "DO25Pro right"
+#define UF2_VOLUME_LABEL   "DO52PRO_RH"
 #define UF2_BOARD_ID       "SuperMini nRF52840"
 #define UF2_INDEX_URL      "https://github.com/joric/nrfmicro/wiki/Alternatives#supermini-nrf52840"
