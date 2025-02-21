@@ -138,6 +138,9 @@ void board_init(void) {
 // Actions at the end of board_teardown.
 void __attribute__((weak)) board_teardown2(void) {}
 
+// Exit bootloader on button press
+bool __attribute__((weak)) exit_bootloader(void) { return false; }
+
 void board_teardown(void) {
   // Disable systick, turn off LEDs
   SysTick->CTRL = 0;

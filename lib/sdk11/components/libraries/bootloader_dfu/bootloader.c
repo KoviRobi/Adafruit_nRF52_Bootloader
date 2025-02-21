@@ -136,7 +136,8 @@ static void wait_for_events(void)
 
     if ((m_update_status == BOOTLOADER_COMPLETE) ||
         (m_update_status == BOOTLOADER_TIMEOUT) ||
-        (m_update_status == BOOTLOADER_RESET) )
+        (m_update_status == BOOTLOADER_RESET) ||
+        exit_bootloader() )
     {
       // When update has completed or a timeout/reset occured we will return.
       return;

@@ -110,6 +110,7 @@ void led_tick(void);
 #endif
 
 void button_init(uint32_t pin);
+bool exit_bootloader(void);
 bool button_pressed(uint32_t pin);
 
 bool is_ota(void);
