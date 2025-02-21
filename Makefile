@@ -13,6 +13,18 @@
 # Board specific
 -include src/boards/$(BOARD)/board.mk
 
+ifdef LEFT_HALF
+	CFLAGS += -DLEFT_HALF
+	HALF = LEFT
+else
+ifdef RIGHT_HALF
+	CFLAGS += -DRIGHT_HALF
+	HALF = RIGHT
+else
+$(error Neither LEFT_HALF or RIGHT_HALF defined)
+endif
+endif
+
 SDK_PATH     = lib/sdk/components
 SDK11_PATH   = lib/sdk11/components
 TUSB_PATH    = lib/tinyusb/src
@@ -44,7 +56,7 @@ GIT_VERSION := $(shell git describe --dirty --always --tags)
 GIT_SUBMODULE_VERSIONS := $(shell git submodule status | cut -d" " -f3,4 | paste -s -d" " -)
 
 # compiled file name
-OUT_NAME = $(BOARD)_bootloader-$(GIT_VERSION)
+OUT_NAME = $(BOARD)_$(HALF)_bootloader-$(GIT_VERSION)
 
 # merged file = compiled + sd
 MERGED_FILE = $(OUT_NAME)_$(SD_NAME)_$(SD_VERSION)
@@ -99,7 +111,7 @@ BMP_PORT ?= $(shell ls -1 /dev/cu.usbmodem????????1 | head -1)
 GDB_BMP = $(GDB) -ex 'target extended-remote $(BMP_PORT)' -ex 'monitor swdp_scan' -ex 'attach 1'
 
 # Build directory
-BUILD = _build/build-$(BOARD)
+BUILD = _build/build-$(BOARD)-$(HALF)
 BIN = _bin/$(BOARD)
 
 # MCU_SUB_VARIANT can be nrf52 (nrf52832), nrf52833, nrf52840
@@ -500,7 +512,7 @@ dfu-flash: flash-dfu
 flash-dfu: $(BUILD)/$(MERGED_FILE).zip
 	@:$(call check_defined, SERIAL, example: SERIAL=/dev/ttyACM0)
 	$(NRFUTIL) --verbose dfu serial --package $< -p $(SERIAL) -b 115200 --singlebank --touch 1200
-	
+
 # flash skip crc magic ( app valid = 0x0001, crc = 0x0000 )
 #flash-skip-crc:
 # nrfjprog --memwr $(BOOT_SETTING_ADDR) --val 0x00000001 -f nrf52

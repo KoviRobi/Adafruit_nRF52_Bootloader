@@ -41,7 +41,13 @@ static const uint8_t nrf_pins[] = {
 };
 
 static const uint8_t rows[] = { 19, 8, 9, 21, 7, 20 };
+#if defined(LEFT_HALF)
 static const uint8_t cols[] = { 1, 0, 2, 4, 5, 6 };
+#elif defined(RIGHT_HALF)
+static const uint8_t cols[] = { 6, 5, 4, 2, 0, 1 };
+#else
+#error "Define LEFT_HALF or RIGHT_HALF"
+#endif
 
 void board_init2(void)
 {
