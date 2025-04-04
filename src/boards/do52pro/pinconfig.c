@@ -35,9 +35,13 @@ static const uint8_t nrf_pins[] = {
   [16] = _PINNUM(0, 10),
   [14] = _PINNUM(1, 11),
   [15] = _PINNUM(1, 13),
-  [18] = _PINNUM(1, 15), [19] = _PINNUM(0, 2),
+  [18] = _PINNUM(1, 15),
+  [19] = _PINNUM(0, 2),
   [20] = _PINNUM(0, 29),
   [21] = _PINNUM(0, 31),
+  [22] = _PINNUM(1, 1),
+  [23] = _PINNUM(1, 2),
+  [24] = _PINNUM(1, 7),
 };
 
 static const uint8_t rows[] = { 19, 8, 9, 21, 7, 20 };
@@ -89,8 +93,9 @@ bool exit_bootloader(void)
   }
 
   bool magic =
-    (matrix[2][1] == 0xFF) && (matrix[2][2] == 0) &&
-    (matrix[2][3] == 0) && (matrix[2][4] == 0xFF);
+    (matrix[1][0] == 0) && (matrix[1][1] == 0)    && (matrix[1][2] == 0) && (matrix[1][3] == 0) && (matrix[1][4] == 0)    && (matrix[1][5] == 0) &&
+    (matrix[2][0] == 0) && (matrix[2][1] == 0xFF) && (matrix[2][2] == 0) && (matrix[2][3] == 0) && (matrix[2][4] == 0xFF) && (matrix[2][5] == 0) &&
+    (matrix[3][0] == 0) && (matrix[3][1] == 0)    && (matrix[3][2] == 0) && (matrix[3][3] == 0) && (matrix[3][4] == 0)    && (matrix[3][5] == 0);
 
   return magic;
 }
